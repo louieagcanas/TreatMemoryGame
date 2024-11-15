@@ -16,14 +16,14 @@ public class GameSave : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public float GetDifficultyLevel()
+    public int GetDifficultyLevel()
     {
-        return PlayerPrefs.GetFloat(DIFFICULTY_SAVE_KEY, 1);
+        return PlayerPrefs.GetInt(DIFFICULTY_SAVE_KEY, 1);
     }
 
     public void SetDifficulty(float difficultyLevel)
     {
-        PlayerPrefs.SetFloat(DIFFICULTY_SAVE_KEY, difficultyLevel);
+        PlayerPrefs.SetInt(DIFFICULTY_SAVE_KEY, (int)difficultyLevel);
         PlayerPrefs.Save();
     }
 }
