@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 148
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -97,9 +97,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 336
-        width: 168
-        height: 168
+        y: 296
+        width: 148
+        height: 148
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -107,8 +107,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27ff38928b56a8847beb1c9addec113d
-      internalID: 1093635844
+      spriteID: 07a3a2e446007314399db9f93c82c080
+      internalID: 1521518632
       vertices: []
       indices: 
       edges: []
@@ -117,10 +117,10 @@ TextureImporter:
       name: charmander
       rect:
         serializedVersion: 2
-        x: 168
-        y: 336
-        width: 168
-        height: 168
+        x: 148
+        y: 296
+        width: 148
+        height: 148
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d1f7e245f51ef242aff015f80923148
-      internalID: -337239775
+      spriteID: 1e746c777ee8ab54084f77dbbe88e183
+      internalID: -174765071
       vertices: []
       indices: 
       edges: []
@@ -138,10 +138,10 @@ TextureImporter:
       name: dratini
       rect:
         serializedVersion: 2
-        x: 336
-        y: 336
-        width: 168
-        height: 168
+        x: 296
+        y: 296
+        width: 148
+        height: 148
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,8 +149,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9184f40db321977428530d63ad097bb6
-      internalID: -1236300850
+      spriteID: 920e322c4ed0adf4bb3bbb70f6c16781
+      internalID: -1489080927
       vertices: []
       indices: 
       edges: []
@@ -159,10 +159,10 @@ TextureImporter:
       name: eevee
       rect:
         serializedVersion: 2
-        x: 0
-        y: 168
-        width: 168
-        height: 168
+        x: 444
+        y: 296
+        width: 148
+        height: 148
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -170,8 +170,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b784628d0165c5a4c907cea2a9dd6ba6
-      internalID: 70980585
+      spriteID: d13bcc134f97af04ea956e7818e3ef1a
+      internalID: -1166959910
       vertices: []
       indices: 
       edges: []
@@ -180,10 +180,10 @@ TextureImporter:
       name: jigglypuff
       rect:
         serializedVersion: 2
-        x: 168
-        y: 168
-        width: 168
-        height: 168
+        x: 0
+        y: 148
+        width: 148
+        height: 148
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,8 +191,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 477e5a25a62f37e47bcde59f6f2fc25c
-      internalID: -2144289029
+      spriteID: 07aa56d6ddcaef541ad4122fcb4bd5c7
+      internalID: 45541684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mankey
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 148
+        width: 148
+        height: 148
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4a0ea7a812ff1f43b233bc8261d3b8d
+      internalID: 1897275550
       vertices: []
       indices: 
       edges: []
@@ -201,10 +222,10 @@ TextureImporter:
       name: mew
       rect:
         serializedVersion: 2
-        x: 336
-        y: 168
-        width: 168
-        height: 168
+        x: 296
+        y: 148
+        width: 148
+        height: 148
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -212,8 +233,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9176cea392687644d9d89212cbad96b3
-      internalID: -1491227183
+      spriteID: 639f4bdbba255f047be03f90b43871c8
+      internalID: -1181575771
       vertices: []
       indices: 
       edges: []
@@ -222,10 +243,10 @@ TextureImporter:
       name: pikachu
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 168
-        height: 168
+        x: 444
+        y: 148
+        width: 148
+        height: 148
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -233,8 +254,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b93594712fd79454e9ac6fdc21706aa8
-      internalID: 2098992761
+      spriteID: 46f791e980bc71b408b9ee6c73a12f41
+      internalID: 1600987851
       vertices: []
       indices: 
       edges: []
@@ -243,10 +264,10 @@ TextureImporter:
       name: pokeball
       rect:
         serializedVersion: 2
-        x: 168
+        x: 0
         y: 0
-        width: 168
-        height: 168
+        width: 148
+        height: 148
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -254,8 +275,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc1669ae45c391049ac2e0bc13b434a0
-      internalID: 1566701761
+      spriteID: 318a00fc4c303e648a1fc41ed322a6f3
+      internalID: 1887701390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: psyduck
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 0
+        width: 148
+        height: 148
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e311fdac53a0fd34bb5eb23252f607cb
+      internalID: -1053095303
       vertices: []
       indices: 
       edges: []
@@ -264,10 +306,10 @@ TextureImporter:
       name: snorlax
       rect:
         serializedVersion: 2
-        x: 336
+        x: 296
         y: 0
-        width: 168
-        height: 168
+        width: 148
+        height: 148
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -275,8 +317,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e419f4da1c47e943a94d9bb9db1f1d8
-      internalID: 1002331257
+      spriteID: 8842c15ae1cbf1f4b941555051e72cb4
+      internalID: 351042612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: squirtle
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 0
+        width: 148
+        height: 148
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a88f3cee509e6f441957a222fd2b0fc2
+      internalID: -352128995
       vertices: []
       indices: 
       edges: []
@@ -292,15 +355,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bulbasaur: 1093635844
-      charmander: -337239775
-      dratini: -1236300850
-      eevee: 70980585
-      jigglypuff: -2144289029
-      mew: -1491227183
-      pikachu: 2098992761
-      pokeball: 1566701761
-      snorlax: 1002331257
+      bulbasaur: 1521518632
+      charmander: -174765071
+      dratini: -1489080927
+      eevee: -1166959910
+      jigglypuff: 45541684
+      mankey: 1897275550
+      mew: -1181575771
+      pikachu: 1600987851
+      pokeball: 1887701390
+      psyduck: -1053095303
+      snorlax: 351042612
+      squirtle: -352128995
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

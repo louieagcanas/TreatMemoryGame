@@ -1,28 +1,26 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour
 {
-    //[SerializeField]
-    //private float cellWidth;
-
-    //[SerializeField]
-    //private float cellHeight;
-
-    [SerializeField]
-    private float boardOffset;
+    public event Action<string> OnCardSelected;
 
     [SerializeField]
     private GameObject cardPrefab;
 
     [SerializeField]
-    private GameSave gameSave;
+    private Sprite[] availableSprites;
+
+    [SerializeField]
+    private float boardOffset;
 
     private GridLayoutGroup gridLayoutGroup;
-
-    private int totalCards = 0;
-
     private RectTransform board;
+
+    private List<Card> selectedCards = new List<Card>();
+    private List<Card> availableCards = new List<Card>();
 
     private void Awake()
     {
@@ -30,31 +28,63 @@ public class BoardManager : MonoBehaviour
         gridLayoutGroup = GetComponent<GridLayoutGroup>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void Initialize(int difficultyLevel)
     {
-        totalCards = (gameSave.GetDifficultyLevel() + 1) * 2;
-        PopulateBoard();
-        ResizeBoard();
+        selectedCards.Clear();
+        availableCards.Clear();
+
+        int totalCards = (difficultyLevel + 1) * 2; //2 as cards will be in pairs
+
+        PopulateBoard(totalCards, difficultyLevel);
+        ResizeBoard(totalCards);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void PopulateBoard(int totalCards, int difficultyLevel)
     {
-        
-    }
+        // Get memory images
+        List<Sprite> cardSprites = new List<Sprite>();
+        int spriteIndex = 0;
+        for(int i = 0; i < totalCards; i++ )
+        {
+            cardSprites.Add(availableSprites[spriteIndex]);
 
-    private void PopulateBoard()
-    {
-        for(int i = 0; i < totalCards; i++)
+            Debug.Log($"Sprite Index: {spriteIndex}");
+
+            if(i != 0 && i%2 != 0)
+            {
+                spriteIndex++;
+            }
+        }
+
+        // Shuffle images
+        for( int i = 0; i < cardSprites.Count; i++ )
+        {
+            Sprite temp = cardSprites[i];
+            int randomIndex = UnityEngine.Random.Range(0, cardSprites.Count);
+            cardSprites[i] = cardSprites[randomIndex];
+            cardSprites[randomIndex] = temp;
+        }
+
+        // Initialize Cards
+        for (int i = 0; i < totalCards; i++)
         {
             GameObject cardInstance = GameObject.Instantiate(cardPrefab, transform);
+            Card card = cardInstance.GetComponent<Card>();
+            card.Initialize(i, cardSprites[i]);
+            card.OnCardSelected += CardSelected;
+            availableCards.Add(card);
         }
     }
 
-    private void ResizeBoard()
+    private void CardSelected(int cardIndex)
     {
+        Card card = availableCards[cardIndex];
+        selectedCards.Add(card);
+        OnCardSelected?.Invoke(card.CardName);
+    }
 
+    private void ResizeBoard(int totalCards)
+    {
         Debug.Log($"Total Cards: {totalCards}");
 
         int bestRows = 1;
@@ -83,18 +113,42 @@ public class BoardManager : MonoBehaviour
         float width = (bestColumns * gridLayoutGroup.cellSize.x) + (bestColumns * gridLayoutGroup.spacing.x) + boardOffset;
         float height = (bestRows * gridLayoutGroup.cellSize.y) + (bestRows * gridLayoutGroup.spacing.y) + boardOffset;
         board.sizeDelta = new Vector2(width, height);
+    }
 
-        //int rows = 2; //minimum 2;
-        //int columns = totalCards / 2;
-        //if( columns > maximumColumns )
-        //{
-        //    int extraRow = columns % maximumColumns;
-        //    rows += extraRow;
-        //    columns = maximumColumns;
-        //}
+    public void CheckCardPairResult(bool didMatched)
+    {
 
-        //float width = (columns * cellWidth) + boardOffset;
-        //float height = (rows * cellHeight) + boardOffset;
-        //board.sizeDelta = new Vector2 (width, height);
+
+        if(didMatched)
+        {
+            foreach (Card card in selectedCards)
+            {
+                card.HideCard();
+            }
+        }
+        else
+        {
+            foreach( Card card in selectedCards )
+            {
+                card.ShowCardBack();
+            }
+        }
+
+        selectedCards.Clear();
+    }
+
+    public void EnableCardInput()
+    {
+        foreach(Card card in availableCards)
+        {
+            card.EnableInput();
+        }
+    }
+    public void DisableCardInput()
+    {
+        foreach (Card card in availableCards)
+        {
+            card.DisableInput();
+        }
     }
 }
