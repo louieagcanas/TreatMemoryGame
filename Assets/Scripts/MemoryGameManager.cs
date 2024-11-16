@@ -12,9 +12,6 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField]
     private GameHUD gameHUD;
 
-    [SerializeField]
-    private GameSave gameSave;
-
     private int totalMoves = 0;
     private int guessCounter = 0;
     private int pairCounter = 0;
@@ -25,13 +22,12 @@ public class MemoryGameManager : MonoBehaviour
 
     private void Start()
     {
-        pairTotalNeeded = gameSave.GetDifficultyLevel() + 1;
-        //StartGame();
+        pairTotalNeeded = GameSettings.GetDifficultyLevel() + 1;
     }
 
     public void StartGame()
     {
-        boardManager.Initialize(gameSave.GetDifficultyLevel());
+        boardManager.Initialize(GameSettings.GetDifficultyLevel());
         boardManager.OnCardSelected += CardSelected;
     }
 

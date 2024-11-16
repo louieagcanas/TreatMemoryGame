@@ -45,6 +45,7 @@ public class Card : MonoBehaviour
     {
         cardFront.SetActive(true);
         cardBack.SetActive(false);
+        DisableInput();
     }
 
     public void ShowCardBack()

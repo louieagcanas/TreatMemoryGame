@@ -10,12 +10,19 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private Slider difficultySlider;
 
-    [SerializeField]
-    private GameSave gameSave;
-
     private void Start()
     {
-        nameInput.text = gameSave.GetPlayerName();
-        difficultySlider.value = gameSave.GetDifficultyLevel();
+        nameInput.text = GameSettings.GetPlayerName();
+        difficultySlider.value = GameSettings.GetDifficultyLevel();
+    }
+
+    public void NameInputed(string name)
+    {
+        GameSettings.SetPlayerName(name);
+    }
+
+    public void DifficultyChanged(float difficultyLevel)
+    {
+        GameSettings.SetDifficultyLevel(difficultyLevel);
     }
 }
