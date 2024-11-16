@@ -14,39 +14,32 @@ public class PopupWindow : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI declineButtonText;
 
-    private Action ConfirmCallback;
-    private Action DeclineCallback;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private event Action ConfirmCallback;
+    private event Action DeclineCallback;
 
     public void OpenPopupWindow(string message, string confirmText, string declineText, 
                                    Action confirmCallback = null, Action declineCallback = null )
     {
+        gameObject.SetActive(true);
+
         popupMessage.text = message;
         confirmButtonText.text = confirmText;
         declineButtonText.text = declineText;
 
-        ConfirmCallback = confirmCallback;
-        DeclineCallback = declineCallback;
+        ConfirmCallback += confirmCallback;
+        DeclineCallback += declineCallback;
     }
 
     public void Confirm()
     {
-
+        Debug.Log($"Confirm!");
+        ConfirmCallback?.Invoke();
+        gameObject.SetActive(false);
     }
 
     public void Decline()
     {
-
+        DeclineCallback?.Invoke();
+        gameObject.SetActive(false);
     }
 }

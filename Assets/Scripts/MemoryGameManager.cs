@@ -20,15 +20,30 @@ public class MemoryGameManager : MonoBehaviour
     private string firstCardName;
     private string secondCardName;
 
-    private void Start()
+    private void Awake()
     {
-        pairTotalNeeded = GameSettings.GetDifficultyLevel() + 1;
+        gameHUD.OnGameRestart += StartGame;
+        boardManager.OnCardSelected += CardSelected;
+    }
+
+    private void Reset()
+    {
+        totalMoves = 0;
+        gameHUD.UpdateMoveCounter(totalMoves);
+
+        guessCounter = 0;
+        pairCounter = 0;
+
+        firstCardName = string.Empty;
+        secondCardName = string.Empty;
     }
 
     public void StartGame()
     {
+        Reset();
+
+        pairTotalNeeded = GameSettings.GetDifficultyLevel() + 1;
         boardManager.Initialize(GameSettings.GetDifficultyLevel());
-        boardManager.OnCardSelected += CardSelected;
     }
 
     private void CardSelected(string cardName)

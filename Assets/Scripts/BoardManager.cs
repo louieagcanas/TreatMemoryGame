@@ -28,11 +28,13 @@ public class BoardManager : MonoBehaviour
         gridLayoutGroup = GetComponent<GridLayoutGroup>();
     }
 
-    public void Initialize(int difficultyLevel)
+    private void Reset()
     {
         selectedCards.Clear();
-        availableCards.Clear();
+    }
 
+    public void Initialize(int difficultyLevel)
+    {
         int totalCards = (difficultyLevel + 1) * 2; //2 as cards will be in pairs
 
         PopulateBoard(totalCards, difficultyLevel);
@@ -47,8 +49,6 @@ public class BoardManager : MonoBehaviour
         for(int i = 0; i < totalCards; i++ )
         {
             cardSprites.Add(availableSprites[spriteIndex]);
-
-            Debug.Log($"Sprite Index: {spriteIndex}");
 
             if(i != 0 && i%2 != 0)
             {
@@ -68,11 +68,24 @@ public class BoardManager : MonoBehaviour
         // Initialize Cards
         for (int i = 0; i < totalCards; i++)
         {
-            GameObject cardInstance = GameObject.Instantiate(cardPrefab, transform);
-            Card card = cardInstance.GetComponent<Card>();
-            card.Initialize(i, cardSprites[i]);
-            card.OnCardSelected += CardSelected;
-            availableCards.Add(card);
+            if( i < availableCards.Count )
+            {
+                //Use existing
+                Card card = availableCards[i];
+                card.Initialize(i, cardSprites[i]);
+                card.ShowCard();
+            }
+            else
+            {
+                //Create new
+                GameObject cardInstance = GameObject.Instantiate(cardPrefab, transform);
+                Card card = cardInstance.GetComponent<Card>();
+                card.Initialize(i, cardSprites[i]);
+                card.OnCardSelected += CardSelected;
+                card.ShowCard();
+
+                availableCards.Add(card);
+            }
         }
     }
 

@@ -19,7 +19,7 @@ public class Card : MonoBehaviour
     private int cardIndex;
     public string CardName { private set; get; }
 
-    private void Start()
+    private void Awake()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(CardSelectedHandler);
@@ -54,11 +54,18 @@ public class Card : MonoBehaviour
         cardBack.SetActive(true);
     }
 
+    public void ShowCard()
+    {
+        EnableInput();
+        cardFront.SetActive(true);
+        cardBack.SetActive(true);
+    }
+
     public void HideCard()
     {
+        DisableInput();
         cardFront.SetActive(false);
         cardBack.SetActive(false);
-        button.interactable = false;
     }
 
     public void EnableInput()
