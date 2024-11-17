@@ -10,11 +10,19 @@ public class GameHUD : MonoBehaviour
     private TextMeshProUGUI moveCounter;
 
     [SerializeField]
+    private TextMeshProUGUI timerText;
+
+    [SerializeField]
     private PopupWindow popupWindow;
 
     public void UpdateMoveCounter(int moves)
     {
         moveCounter.text = moves.ToString();
+    }
+
+    public void UpdateTimer(float timer)
+    {
+        timerText.text = timer.ToString();
     }
 
     public void TryRestart()

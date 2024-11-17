@@ -12,6 +12,10 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField]
     private GameHUD gameHUD;
 
+    [SerializeField]
+    private LevelTimers levelTimers;
+    private float timer;
+
     private int totalMoves = 0;
     private int guessCounter = 0;
     private int pairCounter = 0;
@@ -20,10 +24,17 @@ public class MemoryGameManager : MonoBehaviour
     private string firstCardName;
     private string secondCardName;
 
+    private Coroutine timerCoroutine;
+
     private void Awake()
     {
         gameHUD.OnGameRestart += StartGame;
         boardManager.OnCardSelected += CardSelected;
+    }
+
+    private void Update()
+    {
+        
     }
 
     private void Reset()
@@ -42,8 +53,23 @@ public class MemoryGameManager : MonoBehaviour
     {
         Reset();
 
+        timer = levelTimers.Timers[GameSettings.GetDifficultyLevel() - 1];
         pairTotalNeeded = GameSettings.GetDifficultyLevel() + 1;
         boardManager.Initialize(GameSettings.GetDifficultyLevel());
+
+        timerCoroutine = StartCoroutine(CountdownTimer());
+    }
+
+    private IEnumerator CountdownTimer()
+    {
+        gameHUD.UpdateTimer(timer);
+
+        while (timer > 0 )
+        {
+            yield return new WaitForSeconds(1.0f);
+            timer--;
+            gameHUD.UpdateTimer(timer);
+        }
     }
 
     private void CardSelected(string cardName)
@@ -56,8 +82,6 @@ public class MemoryGameManager : MonoBehaviour
         if(guessCounter == 1)
         {
             firstCardName = cardName;
-
-            //start timer
         }
         else if (guessCounter == 2)
         {
@@ -73,7 +97,7 @@ public class MemoryGameManager : MonoBehaviour
     {
         boardManager.DisableCardInput();
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
 
         if (firstCardName == secondCardName)
         {
@@ -98,6 +122,7 @@ public class MemoryGameManager : MonoBehaviour
         if (pairCounter == pairTotalNeeded)
         {
             Debug.Log($"Level Done!");
+            StopCoroutine(timerCoroutine);
             OnLevelDone?.Invoke();
         }
     }

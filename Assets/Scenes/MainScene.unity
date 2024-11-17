@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveCounter: {fileID: 1763065637}
+  timerText: {fileID: 2078574246}
   popupWindow: {fileID: 518010301}
 --- !u!1 &19511636
 GameObject:
@@ -4209,6 +4210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardManager: {fileID: 1529102862}
   gameHUD: {fileID: 18096903}
+  levelTimers: {fileID: 11400000, guid: 36593589fe3c8464dbbd4b5343cc51e7, type: 2}
 --- !u!4 &2021705306
 Transform:
   m_ObjectHideFlags: 0
