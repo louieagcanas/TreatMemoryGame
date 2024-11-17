@@ -2,9 +2,10 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class GameHUD : MonoBehaviour
+public class GameHUD : MonoBehaviour, IScreen
 {
-    public event Action OnGameRestart;
+    public event Action OnMainMenu;
+    public event Action OnRestart;
 
     [SerializeField]
     private TextMeshProUGUI moveCounter;
@@ -30,13 +31,28 @@ public class GameHUD : MonoBehaviour
         popupWindow.OpenPopupWindow("You're trying to restart the level. Are you sure you want to proceed?", "Yes", "No", ConfirmRestart, null);
     }
 
-    private void ConfirmRestart()
+    public void TryReturnToMainMenu()
     {
-        OnGameRestart?.Invoke();
+        popupWindow.OpenPopupWindow("You're trying to return to the Main Menu. Are you sure you want to proceed?", "Yes", "No", ConfirmReturnToMainMenu, null);
     }
 
-    public void ReturnToMainMenu()
+    public void ConfirmReturnToMainMenu()
     {
+        OnMainMenu?.Invoke();
+    }
 
+    private void ConfirmRestart()
+    {
+        OnRestart?.Invoke();
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 }

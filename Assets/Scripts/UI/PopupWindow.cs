@@ -1,9 +1,8 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class PopupWindow : MonoBehaviour
+public class PopupWindow : MonoBehaviour, IScreen
 {
     [SerializeField]
     private TextMeshProUGUI popupMessage;
@@ -20,26 +19,43 @@ public class PopupWindow : MonoBehaviour
     public void OpenPopupWindow(string message, string confirmText, string declineText, 
                                    Action confirmCallback = null, Action declineCallback = null )
     {
-        gameObject.SetActive(true);
-
         popupMessage.text = message;
         confirmButtonText.text = confirmText;
         declineButtonText.text = declineText;
 
         ConfirmCallback += confirmCallback;
         DeclineCallback += declineCallback;
+
+        Show();
     }
 
     public void Confirm()
     {
-        Debug.Log($"Confirm!");
         ConfirmCallback?.Invoke();
-        gameObject.SetActive(false);
+
+        ConfirmCallback = null;
+        DeclineCallback = null;
+
+        Hide();
     }
 
     public void Decline()
     {
         DeclineCallback?.Invoke();
+
+        ConfirmCallback = null;
+        DeclineCallback = null;
+
+        Hide();
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
         gameObject.SetActive(false);
     }
 }

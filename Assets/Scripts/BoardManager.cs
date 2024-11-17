@@ -28,11 +28,6 @@ public class BoardManager : MonoBehaviour
         gridLayoutGroup = GetComponent<GridLayoutGroup>();
     }
 
-    private void Reset()
-    {
-        selectedCards.Clear();
-    }
-
     public void Initialize(int difficultyLevel)
     {
         int totalCards = (difficultyLevel + 1) * 2; //2 as cards will be in pairs
@@ -130,8 +125,6 @@ public class BoardManager : MonoBehaviour
 
     public void CheckCardPairResult(bool didMatched)
     {
-
-
         if(didMatched)
         {
             foreach (Card card in selectedCards)
@@ -148,6 +141,15 @@ public class BoardManager : MonoBehaviour
         }
 
         selectedCards.Clear();
+    }
+
+    public void Reset()
+    {
+        selectedCards.Clear();
+        foreach(Card card in availableCards)
+        {
+            card.OnCardSelected -= CardSelected;
+        }
     }
 
     public void EnableCardInput()

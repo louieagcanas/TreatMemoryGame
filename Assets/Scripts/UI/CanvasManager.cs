@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
@@ -14,19 +12,26 @@ public class CanvasManager : MonoBehaviour
     private GameObject gameBoard;
 
     [SerializeField]
-    private GameObject popupOverlay;
+    private GameObject resultScreen;
 
     private void Start()
+    {
+        SwitchToMainMenu();
+    }
+
+    public void SwitchToMainMenu()
     {
         mainMenu.SetActive(true);
         gameHUD.SetActive(false);
         gameBoard.SetActive(false);
+        resultScreen.SetActive(false);
     }
 
-    public void ChangeToGameMode()
+    public void SwitchToGameMode()
     {
         mainMenu.SetActive(false);
         gameHUD.SetActive(true);
         gameBoard.SetActive(true);
+        resultScreen.SetActive(false);
     }
 }

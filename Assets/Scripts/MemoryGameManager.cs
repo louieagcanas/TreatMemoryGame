@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class MemoryGameManager : MonoBehaviour
 {
-    public event Action OnLevelDone;
-
     [SerializeField]
-    private BoardManager boardManager;
+    private CanvasManager canvasManager;
 
     [SerializeField]
     private GameHUD gameHUD;
+
+    [SerializeField]
+    private ResultScreen resultScreen;
+
+    [SerializeField]
+    private BoardManager boardManager;
 
     [SerializeField]
     private LevelTimers levelTimers;
@@ -28,13 +32,31 @@ public class MemoryGameManager : MonoBehaviour
 
     private void Awake()
     {
-        gameHUD.OnGameRestart += StartGame;
+        gameHUD.OnMainMenu += ReturnToMainMenu;
+        gameHUD.OnRestart += RestartGame;
+
         boardManager.OnCardSelected += CardSelected;
+
+        resultScreen.OnMainMenu += ReturnToMainMenu;
+        resultScreen.OnRestart += RestartGame;
     }
 
-    private void Update()
+    public void StartGame()
     {
-        
+        Reset();
+
+        timer = levelTimers.Timers[GameSettings.GetDifficultyLevel() - 1];
+        pairTotalNeeded = GameSettings.GetDifficultyLevel() + 1;
+        boardManager.Initialize(GameSettings.GetDifficultyLevel());
+
+        StartTimer();
+    }
+
+    public void RestartGame()
+    {
+        gameHUD.Show();
+        Reset();
+        StartGame();
     }
 
     private void Reset()
@@ -47,29 +69,8 @@ public class MemoryGameManager : MonoBehaviour
 
         firstCardName = string.Empty;
         secondCardName = string.Empty;
-    }
 
-    public void StartGame()
-    {
-        Reset();
-
-        timer = levelTimers.Timers[GameSettings.GetDifficultyLevel() - 1];
-        pairTotalNeeded = GameSettings.GetDifficultyLevel() + 1;
-        boardManager.Initialize(GameSettings.GetDifficultyLevel());
-
-        timerCoroutine = StartCoroutine(CountdownTimer());
-    }
-
-    private IEnumerator CountdownTimer()
-    {
-        gameHUD.UpdateTimer(timer);
-
-        while (timer > 0 )
-        {
-            yield return new WaitForSeconds(1.0f);
-            timer--;
-            gameHUD.UpdateTimer(timer);
-        }
+        StopTimer();
     }
 
     private void CardSelected(string cardName)
@@ -88,8 +89,8 @@ public class MemoryGameManager : MonoBehaviour
             secondCardName = cardName;
             guessCounter = 0;
 
-            Debug.Log($"Check if matched!");
-            StartCoroutine( CheckIfCardsMatched() );
+            Debug.Log($"Check if cards are matched.");
+            StartCoroutine(CheckIfCardsMatched());
         }
     }
 
@@ -101,11 +102,11 @@ public class MemoryGameManager : MonoBehaviour
 
         if (firstCardName == secondCardName)
         {
-            Debug.Log("Cards matched!");
+            Debug.Log("Cards are matched!");
             pairCounter++;
 
             boardManager.CheckCardPairResult(true);
-            StartCoroutine(CheckIfLevelIsDone());
+            CheckIfLevelIsDone();
         }
         else
         {
@@ -116,14 +117,58 @@ public class MemoryGameManager : MonoBehaviour
         boardManager.EnableCardInput();
     }
 
-    private IEnumerator CheckIfLevelIsDone()
+    private void CheckIfLevelIsDone()
     {
-        yield return new WaitForSeconds(0.2f);
         if (pairCounter == pairTotalNeeded)
         {
             Debug.Log($"Level Done!");
-            StopCoroutine(timerCoroutine);
-            OnLevelDone?.Invoke();
+            GameWon();
         }
+    }
+
+    private void GameWon()
+    {
+        gameHUD.Hide();
+        resultScreen.ShowWinResult("You Win!", totalMoves);
+        StopTimer();
+    }
+
+    private void GameLose()
+    {
+        gameHUD.Hide();
+        resultScreen.ShowWinResult("You Lose!", totalMoves);
+        StopTimer();
+    }
+
+    private void ReturnToMainMenu()
+    {
+        canvasManager.SwitchToMainMenu();
+    }
+
+    private void StartTimer()
+    {
+        timerCoroutine = StartCoroutine(CountdownTimer());
+    }
+
+    private void StopTimer()
+    {
+        if (timerCoroutine != null)
+        {
+            StopCoroutine(timerCoroutine);
+        }
+    }
+
+    private IEnumerator CountdownTimer()
+    {
+        gameHUD.UpdateTimer(timer);
+
+        while (timer > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            timer--;
+            gameHUD.UpdateTimer(timer);
+        }
+
+        GameLose();
     }
 }
