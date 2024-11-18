@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "24647858847",
+    "firebase_url": "https://treate-memory-game-test-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "treate-memory-game-test",
+    "storage_bucket": "treate-memory-game-test.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24647858847:android:d16f576ebb3075423200aa",
+        "android_client_info": {
+          "package_name": "com.LouieAgcanas.TreatMemoryGame"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRGby7DT0_YT7JUBD7CXCLaopiPNDmr7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

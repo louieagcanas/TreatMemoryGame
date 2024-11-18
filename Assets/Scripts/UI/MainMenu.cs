@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class MainMenu : MonoBehaviour, IScreen
 {
@@ -8,7 +9,12 @@ public class MainMenu : MonoBehaviour, IScreen
     private TMP_InputField nameInput;
 
     [SerializeField]
+    private TextMeshProUGUI nameWarning;
+
+    [SerializeField]
     private Slider difficultySlider;
+
+    public UnityEvent OnGameStart;
 
     private void Start()
     {
@@ -18,12 +24,28 @@ public class MainMenu : MonoBehaviour, IScreen
 
     public void NameInputed(string name)
     {
-        GameSettings.SetPlayerName(name);
+        if(!string.IsNullOrEmpty(name))
+        {
+            GameSettings.SetPlayerName(name);
+            nameWarning.gameObject.SetActive(false);
+        }
     }
 
     public void DifficultyChanged(float difficultyLevel)
     {
         GameSettings.SetDifficultyLevel(difficultyLevel);
+    }
+
+    public void TryGameStart()
+    {
+        if(!string.IsNullOrEmpty(nameInput.text))
+        {
+            OnGameStart?.Invoke();
+        }
+        else
+        {
+            nameWarning.gameObject.SetActive(true);
+        }
     }
 
     public void Show()
