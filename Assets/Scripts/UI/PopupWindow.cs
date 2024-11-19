@@ -23,8 +23,8 @@ public class PopupWindow : MonoBehaviour, IScreen
         confirmButtonText.text = confirmText;
         declineButtonText.text = declineText;
 
-        ConfirmCallback += confirmCallback;
-        DeclineCallback += declineCallback;
+        ConfirmCallback = confirmCallback;
+        DeclineCallback = declineCallback;
 
         Show();
     }

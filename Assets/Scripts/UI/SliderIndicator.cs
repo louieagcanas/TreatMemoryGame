@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DifficultySliderIndicator : MonoBehaviour
+public class SliderIndicator : MonoBehaviour
 {
     private TextMeshProUGUI sliderIndicator;
 

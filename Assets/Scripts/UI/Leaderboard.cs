@@ -6,38 +6,22 @@ public class Leaderboard : MonoBehaviour, IScreen
     [SerializeField]
     private GameObject leaderboardEntryPrefab;
 
-    [SerializeField]
-    private MemoryGameDatabaseManager databaseManager;
+    //[SerializeField]
+    //private MemoryGameDatabaseManager databaseManager;
 
     [SerializeField]
     private Transform leaderboardEntriesParent;
 
-    private void Awake()
-    {
-        
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ShowLeaderboard()
     {
-        databaseManager.OnLeaderboardLoaded += PopulateBoard;
-        databaseManager.LoadLeaderboardData();
+        //databaseManager.OnLeaderboardLoaded += PopulateBoard;
+        //databaseManager.LoadLeaderboardData();
+        MemoryGameDatabaseManager.Instance.LoadLeaderboardData(PopulateBoard);
     }
 
     private void PopulateBoard()
     {
-        List<LeaderboardEntryData> leaderboardData = databaseManager.LeaderboardEntries;
+        List<LeaderboardEntryData> leaderboardData = MemoryGameDatabaseManager.Instance.LeaderboardEntries;
         string currentUserName = GameSettings.GetPlayerName();
 
         for(int i = 0; i < leaderboardData.Count; i++ )

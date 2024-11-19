@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour, IScreen
 {
@@ -13,8 +14,6 @@ public class MainMenu : MonoBehaviour, IScreen
 
     [SerializeField]
     private Slider difficultySlider;
-
-    public UnityEvent OnGameStart;
 
     private void Start()
     {
@@ -40,7 +39,8 @@ public class MainMenu : MonoBehaviour, IScreen
     {
         if(!string.IsNullOrEmpty(nameInput.text))
         {
-            OnGameStart?.Invoke();
+            //OnGameStart?.Invoke();
+            SceneManager.LoadSceneAsync("MemoryGame");
         }
         else
         {

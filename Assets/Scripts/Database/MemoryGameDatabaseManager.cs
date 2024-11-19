@@ -7,19 +7,40 @@ using Firebase.Database;
 
 public class MemoryGameDatabaseManager : MonoBehaviour
 {
-    public event Action OnLeaderboardLoaded;
+    private static MemoryGameDatabaseManager instance;
+    public static MemoryGameDatabaseManager Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                GameObject gameObject = new GameObject("DatabaseManager");
+                instance = gameObject.AddComponent<MemoryGameDatabaseManager>();
+            }
+
+            return instance;
+        }
+    }
 
     private const string USER_SESSIONS_KEY = "userSessions";
 
     private DatabaseReference database;
     private UserSession highestUserSession;
 
-    public List<LeaderboardEntryData> LeaderboardEntries { private set; get; } = new List<LeaderboardEntryData>();
+    private event Action  onLeaderboardLoaded;
 
     private void Awake()
     {
+        if (instance = null)
+        {
+            instance = this;
+        }
+
+        DontDestroyOnLoad(gameObject);
         database = FirebaseDatabase.DefaultInstance.RootReference;
     }
+
+    public List<LeaderboardEntryData> LeaderboardEntries { private set; get; } = new List<LeaderboardEntryData>();
 
     public void GetHighestUserSession(string username)
     {
@@ -93,8 +114,9 @@ public class MemoryGameDatabaseManager : MonoBehaviour
         database.Child(USER_SESSIONS_KEY).Child(username).SetRawJsonValueAsync(jsonData);
     }
 
-    public void LoadLeaderboardData()
+    public void LoadLeaderboardData(Action leaderboardCallback)
     {
+        onLeaderboardLoaded += leaderboardCallback;
         StartCoroutine(LoadLeaderboard());
     }
 
@@ -116,7 +138,8 @@ public class MemoryGameDatabaseManager : MonoBehaviour
             LeaderboardEntries.Add(leaderboardEntryData);
         }
 
-        OnLeaderboardLoaded?.Invoke();
+        onLeaderboardLoaded?.Invoke();
+        onLeaderboardLoaded = null;
     }
 }
 
