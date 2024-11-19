@@ -367,8 +367,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 1541479776011808871}
-  cardFront: {fileID: 1541479775164173278}
-  cardBack: {fileID: 1541479774773045132}
+  cardFront: {fileID: 1541479775164173281}
+  cardBack: {fileID: 1541479774773045135}
 --- !u!1 &1541479776011808869
 GameObject:
   m_ObjectHideFlags: 0

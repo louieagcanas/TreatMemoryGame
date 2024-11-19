@@ -134,7 +134,7 @@ public class BoardManager : MonoBehaviour
         {
             foreach( Card card in selectedCards )
             {
-                card.ShowCardBack();
+                card.FlipShowCardBack();
             }
         }
 

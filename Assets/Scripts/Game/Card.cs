@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Card : MonoBehaviour
 {
@@ -10,10 +11,10 @@ public class Card : MonoBehaviour
     private Image cardImage;
 
     [SerializeField]
-    private GameObject cardFront;
+    private Transform cardFront;
 
     [SerializeField]
-    private GameObject cardBack;
+    private Transform cardBack;
 
     public string CardName { private set; get; }
 
@@ -31,7 +32,7 @@ public class Card : MonoBehaviour
     {
         OnCardSelected?.Invoke(cardIndex);
 
-        ShowCardFront();
+        FlipShowCardFront();
     }
 
     public void Initialize(int index, Sprite sprite)
@@ -41,28 +42,58 @@ public class Card : MonoBehaviour
         CardName = sprite.name;
         isDone = false;
 
-        ShowCardBack();
+        CardScaleIn();
     }
 
-    public void ShowCardFront()
+    private void CardScaleIn()
     {
-        cardFront.SetActive(true);
-        cardBack.SetActive(false);
+        cardFront.gameObject.SetActive(false);
+        cardBack.gameObject.SetActive(true);
+
+        cardBack.localScale = Vector2.zero;
+        float randomDelay = UnityEngine.Random.Range(0.2f, 0.4f);
+        cardBack.DOScale(1.0f, 0.3f).SetDelay(randomDelay);
+
+        EnableInput();
+    }
+
+    public void FlipShowCardFront()
+    {
+        var scale = cardFront.localScale;
+        scale.x = 0.0f;
+        cardFront.localScale = scale;
+
+        cardBack.DOScaleX(0.0f, 0.1f).OnComplete(() =>
+        {
+            cardBack.gameObject.SetActive(false);
+
+            cardFront.gameObject.SetActive(true);
+            cardFront.DOScaleX(1.0f, 0.1f);
+        });
+
         DisableInput();
     }
 
-    public void ShowCardBack()
+    public void FlipShowCardBack()
     {
-        cardFront.SetActive(false);
-        cardBack.SetActive(true);
-        EnableInput();
+        var scale = cardBack.localScale;
+        scale.x = 0.0f;
+        cardBack.localScale = scale;
+
+        cardFront.DOScaleX(0.0f, 0.1f).OnComplete(() =>
+        {
+            cardFront.gameObject.SetActive(false);
+
+            cardBack.gameObject.SetActive(true);
+            cardBack.DOScaleX(1.0f, 0.1f);
+        });
     }
 
     public void MarkAsDone()
     {
         isDone = true;
-        cardFront.SetActive(false);
-        cardBack.SetActive(false);
+        cardFront.gameObject.SetActive(false);
+        cardBack.gameObject.SetActive(false);
         DisableInput();
     }
 
