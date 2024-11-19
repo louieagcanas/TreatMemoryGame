@@ -16,7 +16,7 @@ public class CanvasManager : MonoBehaviour
 
     private void Start()
     {
-        SwitchToMainMenu();
+        //SwitchToMainMenu();
     }
 
     public void SwitchToMainMenu()

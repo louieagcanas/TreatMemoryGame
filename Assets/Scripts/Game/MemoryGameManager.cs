@@ -1,11 +1,11 @@
-using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MemoryGameManager : MonoBehaviour
 {
-    [SerializeField]
-    private CanvasManager canvasManager;
+    //[SerializeField]
+    //private CanvasManager canvasManager;
 
     [SerializeField]
     private GameHUD gameHUD;
@@ -16,8 +16,8 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField]
     private BoardManager boardManager;
 
-    [SerializeField]
-    private MemoryGameDatabaseManager databaseManager;
+    //[SerializeField]
+    //private MemoryGameDatabaseManager databaseManager;
 
     [SerializeField]
     private LevelTimers levelTimers;
@@ -44,6 +44,11 @@ public class MemoryGameManager : MonoBehaviour
         resultScreen.OnRestart += RestartGame;
     }
 
+    private void Start()
+    {
+        StartGame();
+    }
+
     public void StartGame()
     {
         Reset();
@@ -52,7 +57,8 @@ public class MemoryGameManager : MonoBehaviour
         pairTotalNeeded = GameSettings.GetDifficultyLevel() + 1;
         boardManager.Initialize(GameSettings.GetDifficultyLevel());
 
-        databaseManager.GetHighestUserSession(GameSettings.GetPlayerName());
+        //databaseManager.GetHighestUserSession(GameSettings.GetPlayerName());
+        MemoryGameDatabaseManager.Instance.GetHighestUserSession(GameSettings.GetPlayerName());
 
         StartTimer();
     }
@@ -134,7 +140,8 @@ public class MemoryGameManager : MonoBehaviour
     private void GameWon()
     {
         gameHUD.Hide();
-        databaseManager.TryToSaveUserSession(GameSettings.GetPlayerName(), GameSettings.GetDifficultyLevel(), totalMoves);
+        //databaseManager.TryToSaveUserSession(GameSettings.GetPlayerName(), GameSettings.GetDifficultyLevel(), totalMoves);
+        MemoryGameDatabaseManager.Instance.TryToSaveUserSession(GameSettings.GetPlayerName(), GameSettings.GetDifficultyLevel(), totalMoves);
         resultScreen.ShowWinResult("You Win!", totalMoves);
         StopTimer();
     }
@@ -148,8 +155,9 @@ public class MemoryGameManager : MonoBehaviour
 
     private void ReturnToMainMenu()
     {
-        canvasManager.SwitchToMainMenu();
+        //canvasManager.SwitchToMainMenu();
         StopTimer();
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void StartTimer()
