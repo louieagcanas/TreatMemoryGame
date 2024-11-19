@@ -89,35 +89,54 @@ public class BoardManager : MonoBehaviour
         OnCardSelected?.Invoke(card.CardName);
     }
 
+    //private void ResizeBoard(int totalCards)
+    //{
+    //    Debug.Log($"Total Cards: {totalCards}");
+
+    //    int bestRows = 1;
+    //    int bestColumns = totalCards;
+    //    int minimumDifference = Mathf.Abs(bestRows - bestColumns);
+
+    //    for (int rows = 1; rows <= totalCards; rows++)
+    //    {
+    //        if (totalCards % rows == 0)
+    //        {
+    //            int columns = totalCards / rows;
+    //            int difference = Mathf.Abs(rows - columns);
+
+    //            if (difference < minimumDifference)
+    //            {
+    //                bestRows = rows;
+    //                bestColumns = columns;
+    //                minimumDifference = difference;
+    //            }
+    //        }
+    //    }
+
+    //    Debug.Log($"Best Rows: {bestRows}");
+    //    Debug.Log($"Best Columns: {bestColumns}");
+
+    //    float width = (bestColumns * gridLayoutGroup.cellSize.x) + (bestColumns * gridLayoutGroup.spacing.x) + boardOffset;
+    //    float height = (bestRows * gridLayoutGroup.cellSize.y) + (bestRows * gridLayoutGroup.spacing.y) + boardOffset;
+    //    board.sizeDelta = new Vector2(width, height);
+    //}
+
     private void ResizeBoard(int totalCards)
     {
         Debug.Log($"Total Cards: {totalCards}");
 
-        int bestRows = 1;
-        int bestColumns = totalCards;
-        int minimumDifference = Mathf.Abs(bestRows - bestColumns);
+        int rows = (int)Math.Ceiling((double)totalCards / 4);
+        Debug.Log($"Rows: {rows}");
 
-        for (int rows = 1; rows <= totalCards; rows++)
-        {
-            if (totalCards % rows == 0)
-            {
-                int columns = totalCards / rows;
-                int difference = Mathf.Abs(rows - columns);
+        int baseRowSize = totalCards / rows;
+        int remainder = totalCards % rows;
 
-                if (difference < minimumDifference)
-                {
-                    bestRows = rows;
-                    bestColumns = columns;
-                    minimumDifference = difference;
-                }
-            }
-        }
+        int columns = baseRowSize + (remainder > 0 ? 1 : 0);
 
-        Debug.Log($"Best Rows: {bestRows}");
-        Debug.Log($"Best Columns: {bestColumns}");
+        Debug.Log($"Column: {columns}");
 
-        float width = (bestColumns * gridLayoutGroup.cellSize.x) + (bestColumns * gridLayoutGroup.spacing.x) + boardOffset;
-        float height = (bestRows * gridLayoutGroup.cellSize.y) + (bestRows * gridLayoutGroup.spacing.y) + boardOffset;
+        float width = (columns * gridLayoutGroup.cellSize.x) + (columns * gridLayoutGroup.spacing.x) + boardOffset;
+        float height = (rows * gridLayoutGroup.cellSize.y) + (rows * gridLayoutGroup.spacing.y) + boardOffset;
         board.sizeDelta = new Vector2(width, height);
     }
 

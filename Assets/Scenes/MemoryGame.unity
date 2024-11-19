@@ -1608,7 +1608,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 752, y: 416}
+  m_SizeDelta: {x: 800, y: 416}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1488188896
 MonoBehaviour:
@@ -1685,8 +1685,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -18}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_AnchoredPosition: {x: 0, y: -147}
+  m_SizeDelta: {x: 750, y: 1500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1529102862
 MonoBehaviour:
@@ -1713,7 +1713,7 @@ MonoBehaviour:
   - {fileID: 351042612, guid: c6e7d25599386ab4eaba3e7eed6f4fbb, type: 3}
   - {fileID: -1489080927, guid: c6e7d25599386ab4eaba3e7eed6f4fbb, type: 3}
   - {fileID: -1181575771, guid: c6e7d25599386ab4eaba3e7eed6f4fbb, type: 3}
-  boardOffset: 15
+  boardOffset: 50
 --- !u!114 &1529102863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1734,8 +1734,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 140, y: 200}
-  m_Spacing: {x: 10, y: 10}
+  m_CellSize: {x: 200, y: 280}
+  m_Spacing: {x: 20, y: 20}
   m_Constraint: 0
   m_ConstraintCount: 4
 --- !u!114 &1529102864
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529102860}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -2280,7 +2280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 582.0001}
+  m_AnchoredPosition: {x: 0, y: 684}
   m_SizeDelta: {x: 80, y: 73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1881026303
@@ -2501,7 +2501,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 697}
+  m_AnchoredPosition: {x: 0, y: 767}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2078574246
