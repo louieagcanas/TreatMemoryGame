@@ -16,12 +16,9 @@ public class PopupWindow : MonoBehaviour, IScreen
     private event Action ConfirmCallback;
     private event Action DeclineCallback;
 
-    public void OpenPopupWindow(string message, string confirmText, string declineText, 
-                                   Action confirmCallback = null, Action declineCallback = null )
+    public void OpenPopupWindow(string message, Action confirmCallback = null, Action declineCallback = null )
     {
         popupMessage.text = message;
-        confirmButtonText.text = confirmText;
-        declineButtonText.text = declineText;
 
         ConfirmCallback = confirmCallback;
         DeclineCallback = declineCallback;

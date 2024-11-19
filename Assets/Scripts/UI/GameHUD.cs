@@ -28,12 +28,12 @@ public class GameHUD : MonoBehaviour, IScreen
 
     public void TryRestart()
     {
-        popupWindow.OpenPopupWindow("You're trying to restart the level. Are you sure you want to proceed?", "Yes", "No", ConfirmRestart, null);
+        popupWindow.OpenPopupWindow("You're trying to restart the level. Are you sure you want to proceed?", ConfirmRestart, null);
     }
 
     public void TryReturnToMainMenu()
     {
-        popupWindow.OpenPopupWindow("You're trying to return to the Main Menu. Are you sure you want to proceed?", "Yes", "No", ConfirmReturnToMainMenu, null);
+        popupWindow.OpenPopupWindow("You're trying to return to the Main Menu. Are you sure you want to proceed?", ConfirmReturnToMainMenu, null);
     }
 
     public void ConfirmReturnToMainMenu()
