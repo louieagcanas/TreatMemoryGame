@@ -1,24 +1,24 @@
+using System;
+using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Firebase.Database;
-using System.Linq;
-using System;
 
 public class MemoryGameDatabaseManager : MonoBehaviour
 {
+    public event Action OnLeaderboardLoaded;
+
     private const string USER_SESSIONS_KEY = "userSessions";
 
     private DatabaseReference database;
     private UserSession highestUserSession;
 
+    public List<LeaderboardEntryData> LeaderboardEntries { private set; get; } = new List<LeaderboardEntryData>();
+
     private void Awake()
     {
         database = FirebaseDatabase.DefaultInstance.RootReference;
-    }
-
-    private void Start()
-    {
-        StartCoroutine(LoadLeaderboard());
     }
 
     public void GetHighestUserSession(string username)
@@ -26,7 +26,7 @@ public class MemoryGameDatabaseManager : MonoBehaviour
         StartCoroutine(GetUserSession(username));
     }
 
-    public IEnumerator GetUserSession(string username)
+    private IEnumerator GetUserSession(string username)
     {
         var usersessionTask = database.Child(USER_SESSIONS_KEY).Child(username).GetValueAsync();
         
@@ -93,7 +93,12 @@ public class MemoryGameDatabaseManager : MonoBehaviour
         database.Child(USER_SESSIONS_KEY).Child(username).SetRawJsonValueAsync(jsonData);
     }
 
-    public IEnumerator LoadLeaderboard()
+    public void LoadLeaderboardData()
+    {
+        StartCoroutine(LoadLeaderboard());
+    }
+
+    private IEnumerator LoadLeaderboard()
     {
         var leaderBoardTask = database.Child(USER_SESSIONS_KEY).OrderByChild("Difficulty").GetValueAsync();
 
@@ -103,12 +108,15 @@ public class MemoryGameDatabaseManager : MonoBehaviour
 
         foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
         {
-            var name = childSnapshot.Key;
-            var difficulty = childSnapshot.Child("Difficulty").Value;
-            var totalMoves = childSnapshot.Child("TotalMoves").Value;
+            string name = childSnapshot.Key;
+            int difficulty = int.Parse(childSnapshot.Child("Difficulty").Value.ToString());
+            int totalMoves = int.Parse(childSnapshot.Child("TotalMoves").Value.ToString());
 
-            Debug.Log($"{name} {difficulty} {totalMoves}");
+            LeaderboardEntryData leaderboardEntryData = new LeaderboardEntryData(name, difficulty, totalMoves);
+            LeaderboardEntries.Add(leaderboardEntryData);
         }
+
+        OnLeaderboardLoaded?.Invoke();
     }
 }
 
@@ -120,6 +128,21 @@ public class UserSession
 
     public UserSession(int difficulty, int totalMoves)
     {
+        Difficulty = difficulty;
+        TotalMoves = totalMoves;
+    }
+}
+
+[Serializable]
+public class LeaderboardEntryData
+{
+    public string Username;
+    public int Difficulty;
+    public int TotalMoves;
+
+    public LeaderboardEntryData(string username, int difficulty, int totalMoves)
+    {
+        Username = username;
         Difficulty = difficulty;
         TotalMoves = totalMoves;
     }
