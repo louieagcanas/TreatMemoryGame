@@ -68,7 +68,6 @@ public class BoardManager : MonoBehaviour
                 //Use existing
                 Card card = availableCards[i];
                 card.Initialize(i, cardSprites[i]);
-                card.ShowCard();
             }
             else
             {
@@ -77,7 +76,6 @@ public class BoardManager : MonoBehaviour
                 Card card = cardInstance.GetComponent<Card>();
                 card.Initialize(i, cardSprites[i]);
                 card.OnCardSelected += CardSelected;
-                card.ShowCard();
 
                 availableCards.Add(card);
             }
@@ -129,7 +127,7 @@ public class BoardManager : MonoBehaviour
         {
             foreach (Card card in selectedCards)
             {
-                card.HideCard();
+                card.MarkAsDone();
             }
         }
         else

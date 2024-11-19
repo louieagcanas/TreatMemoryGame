@@ -15,9 +15,11 @@ public class Card : MonoBehaviour
     [SerializeField]
     private GameObject cardBack;
 
+    public string CardName { private set; get; }
+
     private Button button;
     private int cardIndex;
-    public string CardName { private set; get; }
+    private bool isDone = false;
 
     private void Awake()
     {
@@ -37,6 +39,7 @@ public class Card : MonoBehaviour
         cardIndex = index;
         cardImage.sprite = sprite;
         CardName = sprite.name;
+        isDone = false;
 
         ShowCardBack();
     }
@@ -52,24 +55,20 @@ public class Card : MonoBehaviour
     {
         cardFront.SetActive(false);
         cardBack.SetActive(true);
-    }
-
-    public void ShowCard()
-    {
         EnableInput();
-        cardFront.SetActive(true);
-        cardBack.SetActive(true);
     }
 
-    public void HideCard()
+    public void MarkAsDone()
     {
-        DisableInput();
+        isDone = true;
         cardFront.SetActive(false);
         cardBack.SetActive(false);
+        DisableInput();
     }
 
     public void EnableInput()
     {
+        if (isDone) return;
         button.interactable = true;
     }
 
