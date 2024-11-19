@@ -149,7 +149,7 @@ public class MemoryGameManager : MonoBehaviour
     private void GameLose()
     {
         gameHUD.Hide();
-        resultScreen.ShowWinResult("You Lose!", totalMoves);
+        resultScreen.ShowLoseResult("You Lose!");
         StopTimer();
     }
 

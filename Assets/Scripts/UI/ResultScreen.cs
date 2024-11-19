@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResultScreen : MonoBehaviour, IScreen
 {
@@ -8,14 +9,20 @@ public class ResultScreen : MonoBehaviour, IScreen
     public event Action OnRestart;
 
     [SerializeField]
-    private TextMeshProUGUI resultText;
+    private Image resultsOverlay;
+
+    [SerializeField]
+    private Sprite winOverlay;
+
+    [SerializeField]
+    private Sprite loseOverlay;
 
     [SerializeField]
     private TextMeshProUGUI totalMovesText;
 
     public void ShowWinResult(string message, int totalMoves)
     {
-        resultText.text = message;
+        resultsOverlay.sprite = winOverlay;
         totalMovesText.text = $"Total Moves: {totalMoves}";
         totalMovesText.gameObject.SetActive(true);
         Show();
@@ -23,7 +30,7 @@ public class ResultScreen : MonoBehaviour, IScreen
 
     public void ShowLoseResult(string message)
     {
-        resultText.text = message;
+        resultsOverlay.sprite = loseOverlay;
         totalMovesText.gameObject.SetActive(false);
         Show();
     }
