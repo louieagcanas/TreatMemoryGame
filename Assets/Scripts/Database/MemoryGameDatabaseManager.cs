@@ -131,6 +131,7 @@ public class MemoryGameDatabaseManager : MonoBehaviour
         DataSnapshot snapshot = leaderBoardTask.Result;
 
         foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
+        //foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
         {
             string name = childSnapshot.Key;
             int difficulty = int.Parse(childSnapshot.Child("Difficulty").Value.ToString());
