@@ -149,6 +149,7 @@ public class MemoryGameManager : MonoBehaviour
     private void ReturnToMainMenu()
     {
         canvasManager.SwitchToMainMenu();
+        StopTimer();
     }
 
     private void StartTimer()
