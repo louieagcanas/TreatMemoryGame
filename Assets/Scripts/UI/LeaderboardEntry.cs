@@ -17,7 +17,10 @@ public class LeaderboardEntry : MonoBehaviour
     private Image backgroundImage;
 
     [SerializeField]
-    private Color color;
+    private Color defaultColor;
+
+    [SerializeField]
+    private Color currentUserColor;
 
     public void Initialize(LeaderboardEntryData leaderboardEntryData, bool isCurrentUser = false)
     {
@@ -27,7 +30,15 @@ public class LeaderboardEntry : MonoBehaviour
 
         if( isCurrentUser )
         {
-            backgroundImage.color = color;
+            usernameText.color = currentUserColor;
+            difficultyText.color = currentUserColor;
+            totalMovesText.color = currentUserColor;
+        }
+        else
+        {
+            usernameText.color = defaultColor;
+            difficultyText.color = defaultColor;
+            totalMovesText.color = defaultColor;
         }
     }
 }
