@@ -29,6 +29,8 @@ public class MemoryGameDatabaseManager : MonoBehaviour
 
     private event Action  onLeaderboardLoaded;
 
+    public List<LeaderboardEntryData> LeaderboardEntries { private set; get; } = new List<LeaderboardEntryData>();
+
     private void Awake()
     {
         if (instance = null)
@@ -39,8 +41,6 @@ public class MemoryGameDatabaseManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         database = FirebaseDatabase.DefaultInstance.RootReference;
     }
-
-    public List<LeaderboardEntryData> LeaderboardEntries { private set; get; } = new List<LeaderboardEntryData>();
 
     public void GetHighestUserSession(string username)
     {
@@ -125,6 +125,8 @@ public class MemoryGameDatabaseManager : MonoBehaviour
         var leaderBoardTask = database.Child(USER_SESSIONS_KEY).OrderByChild("Difficulty").GetValueAsync();
 
         yield return new WaitUntil(predicate: () => leaderBoardTask.IsCompleted);
+
+        LeaderboardEntries.Clear();
 
         DataSnapshot snapshot = leaderBoardTask.Result;
 

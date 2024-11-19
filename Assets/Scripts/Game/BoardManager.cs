@@ -71,7 +71,7 @@ public class BoardManager : MonoBehaviour
             }
             else
             {
-                //Create new
+                //Create new - can be removed since main menu is now on a separate scene
                 GameObject cardInstance = GameObject.Instantiate(cardPrefab, transform);
                 Card card = cardInstance.GetComponent<Card>();
                 card.Initialize(i, cardSprites[i]);
