@@ -17,6 +17,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField]
     private float boardOffset;
 
+    [SerializeField] private int maxColumnCount = 4;
+
     private GridLayoutGroup gridLayoutGroup;
     private RectTransform board;
 
@@ -126,7 +128,7 @@ public class BoardManager : MonoBehaviour
     {
         Debug.Log($"Total Cards: {totalCards}");
 
-        int rows = (int)Math.Ceiling((double)totalCards / 4);
+        int rows = (int)Math.Ceiling((double)totalCards / maxColumnCount);
         Debug.Log($"Rows: {rows}");
 
         int baseRowSize = totalCards / rows;

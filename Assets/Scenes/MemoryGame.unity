@@ -1716,6 +1716,7 @@ MonoBehaviour:
   - {fileID: -1489080927, guid: c6e7d25599386ab4eaba3e7eed6f4fbb, type: 3}
   - {fileID: -1181575771, guid: c6e7d25599386ab4eaba3e7eed6f4fbb, type: 3}
   boardOffset: 50
+  maxColumnCount: 4
 --- !u!114 &1529102863
 MonoBehaviour:
   m_ObjectHideFlags: 0
