@@ -133,6 +133,7 @@ public class MemoryGameManager : MonoBehaviour
         if (pairCounter == pairTotalNeeded)
         {
             Debug.Log($"Level Done!");
+            
             GameWon();
         }
     }
@@ -140,16 +141,18 @@ public class MemoryGameManager : MonoBehaviour
     private void GameWon()
     {
         gameHUD.Hide();
+        boardManager.ScaleOut();
         //databaseManager.TryToSaveUserSession(GameSettings.GetPlayerName(), GameSettings.GetDifficultyLevel(), totalMoves);
         MemoryGameDatabaseManager.Instance.TryToSaveUserSession(GameSettings.GetPlayerName(), GameSettings.GetDifficultyLevel(), totalMoves);
-        resultScreen.ShowWinResult("You Win!", totalMoves);
+        resultScreen.ShowWinResult(totalMoves);
         StopTimer();
     }
 
     private void GameLose()
     {
         gameHUD.Hide();
-        resultScreen.ShowLoseResult("You Lose!");
+        boardManager.ScaleOut();
+        resultScreen.ShowLoseResult();
         StopTimer();
     }
 

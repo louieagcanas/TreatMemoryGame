@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class BoardManager : MonoBehaviour
 {
@@ -137,6 +138,7 @@ public class BoardManager : MonoBehaviour
 
         float width = (columns * gridLayoutGroup.cellSize.x) + (columns * gridLayoutGroup.spacing.x) + boardOffset;
         float height = (rows * gridLayoutGroup.cellSize.y) + (rows * gridLayoutGroup.spacing.y) + boardOffset;
+        board.localScale = Vector2.one;
         board.sizeDelta = new Vector2(width, height);
     }
 
@@ -158,6 +160,11 @@ public class BoardManager : MonoBehaviour
         }
 
         selectedCards.Clear();
+    }
+
+    public void ScaleOut()
+    {
+        board.DOScale(Vector2.zero, 0.2f);//.SetDelay(0.2f);
     }
 
     public void Reset()

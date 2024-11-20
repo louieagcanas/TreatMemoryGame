@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ResultScreen : MonoBehaviour, IScreen
 {
@@ -20,19 +21,34 @@ public class ResultScreen : MonoBehaviour, IScreen
     [SerializeField]
     private TextMeshProUGUI totalMovesText;
 
-    public void ShowWinResult(string message, int totalMoves)
+    [SerializeField]
+    private float slideInYPosition = 250.0f;
+
+    [SerializeField]
+    private float slideInDuration = 0.3f;
+
+    public void ShowWinResult(int totalMoves)
     {
+        SlideIn();
         resultsOverlay.sprite = winOverlay;
         totalMovesText.text = $"Total Moves: {totalMoves}";
         totalMovesText.gameObject.SetActive(true);
         Show();
     }
 
-    public void ShowLoseResult(string message)
+    public void ShowLoseResult()
     {
+        SlideIn();
         resultsOverlay.sprite = loseOverlay;
         totalMovesText.gameObject.SetActive(false);
         Show();
+    }
+
+    private void SlideIn()
+    {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        rectTransform.localPosition = new Vector2(0.0f, 1300.0f);
+        rectTransform.DOLocalMoveY(slideInYPosition, slideInDuration).SetEase(Ease.InSine).SetDelay(0.3f);
     }
 
     public void MainMenu()
