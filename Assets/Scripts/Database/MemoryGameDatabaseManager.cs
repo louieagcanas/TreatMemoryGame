@@ -53,16 +53,23 @@ public class MemoryGameDatabaseManager : MonoBehaviour
         
         yield return new WaitUntil(predicate: () => usersessionTask.IsCompleted);
 
-        DataSnapshot snapshot = usersessionTask.Result;
-        string jsonData = snapshot.GetRawJsonValue();
-
-        if( !string.IsNullOrEmpty(jsonData) )
+        if (usersessionTask.Exception != null)
         {
-            highestUserSession = JsonUtility.FromJson<UserSession>(jsonData);
+            Debug.Log($"User Session Task Exception: {usersessionTask.Exception}");
         }
         else
         {
-            Debug.Log("Data not found!");
+            DataSnapshot snapshot = usersessionTask.Result;
+            string jsonData = snapshot.GetRawJsonValue();
+
+            if( !string.IsNullOrEmpty(jsonData) )
+            {
+                highestUserSession = JsonUtility.FromJson<UserSession>(jsonData);
+            }
+            else
+            {
+                Debug.Log("Data not found!");
+            }
         }
     }
 
@@ -78,8 +85,6 @@ public class MemoryGameDatabaseManager : MonoBehaviour
                 Debug.Log("Beaten a higher difficulty!");
                 SaveUserSession(username, difficulty, totalMoves);
                 return true;
-
-
             }
             else if (difficulty == highestUserSession.Difficulty)
             {
@@ -111,7 +116,12 @@ public class MemoryGameDatabaseManager : MonoBehaviour
         highestUserSession = new UserSession(difficulty, totalMoves);
         string jsonData = JsonUtility.ToJson(highestUserSession);
 
-        database.Child(USER_SESSIONS_KEY).Child(username).SetRawJsonValueAsync(jsonData);
+        var saveUserSessionTask = database.Child(USER_SESSIONS_KEY).Child(username).SetRawJsonValueAsync(jsonData);
+
+        if (saveUserSessionTask != null)
+        {
+            Debug.Log($"Save User Session Task Exception: {saveUserSessionTask.Exception}");
+        }
     }
 
     public void LoadLeaderboardData(Action leaderboardCallback)
@@ -126,23 +136,30 @@ public class MemoryGameDatabaseManager : MonoBehaviour
 
         yield return new WaitUntil(predicate: () => leaderBoardTask.IsCompleted);
 
-        LeaderboardEntries.Clear();
-
-        DataSnapshot snapshot = leaderBoardTask.Result;
-
-        foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
-        //foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
+        if (leaderBoardTask.Exception != null)
         {
-            string name = childSnapshot.Key;
-            int difficulty = int.Parse(childSnapshot.Child("Difficulty").Value.ToString());
-            int totalMoves = int.Parse(childSnapshot.Child("TotalMoves").Value.ToString());
-
-            LeaderboardEntryData leaderboardEntryData = new LeaderboardEntryData(name, difficulty, totalMoves);
-            LeaderboardEntries.Add(leaderboardEntryData);
+            Debug.Log($"Leaderboard Task Exception: {leaderBoardTask.Exception}");
         }
+        else
+        {
+            LeaderboardEntries.Clear();
 
-        onLeaderboardLoaded?.Invoke();
-        onLeaderboardLoaded = null;
+            DataSnapshot snapshot = leaderBoardTask.Result;
+
+            foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
+                //foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
+            {
+                string name = childSnapshot.Key;
+                int difficulty = int.Parse(childSnapshot.Child("Difficulty").Value.ToString());
+                int totalMoves = int.Parse(childSnapshot.Child("TotalMoves").Value.ToString());
+
+                LeaderboardEntryData leaderboardEntryData = new LeaderboardEntryData(name, difficulty, totalMoves);
+                LeaderboardEntries.Add(leaderboardEntryData);
+            }
+
+            onLeaderboardLoaded?.Invoke();
+            onLeaderboardLoaded = null;
+        }
     }
 }
 
