@@ -1,6 +1,7 @@
 # Quick Start Guide
 * Make sure you have Git LFS installed for handling larger files from the project
 * On the Game view set the aspect ratio to 9:16
+* Start on MainMenuScene
 
 # Design Decisions
 ## Scene Setup
@@ -38,7 +39,6 @@ I used observer pattern for UI and most of the game events to avoid unnecessary 
 on every level. I just didn't have enough time to implement it
 * I didn't have the time to put on authentication in here so I just adjusted the rules on Firebase console to not require the user to be authenticated to read and write. But of course, I understand that on an actual game the user should be authenticated.
 * API key is technically in the repo, but I understand that it shouldn't be. It's just because of the arrangement of this exam.
-*   
 
 ### Assets
 I wasn't really able to optimize some of the assets as I wanted to put my time on other features. I'm aware that there are sprites where it could be broken down to smaller pieces so things could be more modular.
