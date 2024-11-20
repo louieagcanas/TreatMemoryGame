@@ -35,9 +35,9 @@ I used observer pattern for UI and most of the game events to avoid unnecessary 
 # Additional Information
 ## Improvments
 ### Firebase / Leaderboard
-* I thought of having every user store their **Total Moves** for each difficulty. Then in the leaderboard, you could see who made the fewest moves 
-on every level. I just didn't have enough time to implement it
+* Design Ideas: I thought of having every user store their **Total Moves** for each difficulty. Then in the leaderboard, you could see who made the fewest moves on every level. I just didn't have enough time to implement it.
 * I didn't have the time to put on authentication in here so I just adjusted the rules on Firebase console to not require the user to be authenticated to read and write. But of course, I understand that on an actual game the user should be authenticated.
+* Disclaimer: I didn't recognize early that the leaderboard entries with same difficulty level is not sorted based on total moves. I didn't have enough time to fix it. 
 * API key is technically in the repo, but I understand that it shouldn't be. It's just because of the arrangement of this exam.
 
 ### Assets
